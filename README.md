@@ -1,6 +1,8 @@
-# icm-architect
+# ariadne-icm-architect
 
-A Claude skill that designs any process, idea, or problem into an **ICM workspace** — folder structure as agent architecture — or restructures an existing folder, repo, or vault into one.
+A focused fork of [RinDig/icm-architect](https://github.com/RinDig/icm-architect). The original MIT license and copyright notice are preserved in [LICENSE](LICENSE).
+
+A Ariadne, Claude or other agents skill that designs any process, idea, or problem into an **ICM workspace** — folder structure as agent architecture — or restructures an existing folder, repo, or vault into one.
 
 ICM (Interpretable Context Methodology) replaces orchestration code with structure: numbered folders carry sequencing, hierarchy carries context scoping, plain markdown files carry state. One agent, reading the right files at the right moment, does the work of a multi-agent framework — and a human can open any folder and see exactly what state the system is in.
 
@@ -20,24 +22,32 @@ Six forms, one skeleton: **Pipeline** (production line), **Umbrella** (portfolio
 
 Every result is validated with the **walk test**: an agent with no memory must orient, act, and report status from the files alone.
 
+## fork-specific changes
+
+- **Clickable file navigation:** internal file references use relative Markdown links instead of backticked paths.
+- **Workspace-wide terms:** shared terms and identifiers use `[[wikilinks]]` across files, including inside tables. They do not require definitions, dedicated pages, or glossaries.
+- **Self-contained maintenance:** each generated workspace keeps these rules in its own root `AGENTS.md` or `CLAUDE.md` and receives a small `_system/check_links.py` path checker. A later agent does not need this skill to maintain the convention.
+
+This fork keeps the original six forms, ICM structure, and human review of substantive work. The checker verifies relative links, not the semantic correctness of wikilinks or missing wikilink markup.
+
 ## Install
 
-**Claude Code:** copy this folder to `~/.claude/skills/icm-architect/` (or `.claude/skills/icm-architect/` inside a project), then ask Claude to "ICM this" / "structure this for agents" / "build me a workspace for X".
+**Claude Code:** copy this folder to `~/.claude/skills/ariadne-icm-architect/` (or `.claude/skills/ariadne-icm-architect/` inside a project). It can coexist with the original skill. Ask Claude to use "ariadne-icm-architect" when creating or restructuring a workspace.
 
-**Claude apps:** upload `icm-architect.skill` (build it with the skill-creator packager, or zip the `icm-architect/` folder itself — the folder is the zip root, not its contents) via [Customize → Skills](https://claude.ai/customize/skills).
+**Claude apps:** package this entire folder as `ariadne-icm-architect.skill` (zip root is `ariadne-icm-architect/`) and upload it via [Customize → Skills](https://claude.ai/customize/skills).
 
 ## Layout
 
 ```
-icm-architect/
+ariadne-icm-architect/
 ├─ SKILL.md              the method: invariants, build mode, restructure mode, walk test
 ├─ references/
 │  ├─ core.md                 five principles, five-layer hierarchy, naming, token discipline
 │  ├─ forms.md                the six forms in depth: skeletons, moves, failure modes
 │  ├─ system-map.md           audit pipeline for the System map form
 │  └─ reference-integrity.md  restructure move-safety gate
-└─ assets/templates/     copyable starters: CLAUDE.md, CONTEXT.md, stage contract,
-                         node card, object/process cards, schema, questionnaire
+└─ assets/templates/     original copyable starters with navigable Markdown links,
+                         plus check_links.py copied into each workspace
 ```
 
 MIT licensed, like the protocol it serves.

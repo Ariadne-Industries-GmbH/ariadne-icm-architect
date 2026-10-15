@@ -20,7 +20,7 @@ The consequence, stated once: *stage sequencing is the folder numbering; context
 
 | Layer | Typical file | Question it answers | Role | Size |
 |---|---|---|---|---|
-| L0 | `CLAUDE.md` | Where am I? | routing | 300–800 tokens |
+| L0 | `AGENTS.md` | Where am I? | routing | 300–800 tokens |
 | L1 | root `CONTEXT.md` | Where do I go? | routing | 200–500 tokens |
 | L2 | stage `CONTEXT.md` | What do I do? | **the control point** | 200–500 tokens |
 | L3 | `references/`, `_shared/` | What rules apply? | factory (stable) | 500–2k tokens |
@@ -41,9 +41,9 @@ Every working folder carries a `CONTEXT.md` shaped like this (copy from `assets/
 One job: write the script from the research output.
 
 ## Inputs
-- Working (this run): ../01_research/output/research.md
-- Reference (every run): ../../_shared/voice.md
-- Reference (every run): references/structure.md
+- Working (this run): [Research output](../01_research/output/research.md)
+- Reference (every run): [Voice](../../_shared/voice.md)
+- Reference (every run): [Structure](references/structure.md)
 
 ## Process
 1. Read the research output.
@@ -57,7 +57,7 @@ One job: write the script from the research output.
 Read the draft aloud. Verify the argument order survived from research. Edit in place; the next stage reads whatever is here.
 ```
 
-Rules: inputs are exact paths, split working vs reference. The process is numbered and short — constraints live in L3 files, not restated here. Exactly one human check, stated as something a person does, not a vague "review."
+Rules: inputs are clickable relative Markdown links to exact files, split working vs reference. The process is numbered and short — constraints live in L3 files, not restated here. Exactly one human check, stated as something a person does, not a vague "review."
 
 ## Naming conventions
 

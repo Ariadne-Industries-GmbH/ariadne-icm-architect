@@ -40,4 +40,4 @@ Citations: `{path}:{line}`
 
 ## See
 
-- Source: `{path}`
+- Source: [Source file]({path})

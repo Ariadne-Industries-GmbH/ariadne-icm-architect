@@ -13,7 +13,7 @@ A file with a live referrer is **held**, or moved only if every referrer is upda
 
 ## Destination collision
 
-Before any copy or rename, check whether the destination already exists **case-folded**. On Windows and macOS the filesystem is case-insensitive, so the rename the method itself uses — `CLAUDE.md` → `CONTEXT.md` — silently overwrites an existing `context.md`. A migration map built from a file inventory lists the two files separately. A parity check run *after* the copy cannot catch it: by then the destination is the source.
+Before any copy or rename, check whether the destination already exists **case-folded**. On Windows and macOS the filesystem is case-insensitive, so the rename the method itself uses — `AGENTS.md` → `CONTEXT.md` — silently overwrites an existing `context.md`. A migration map built from a file inventory lists the two files separately. A parity check run *after* the copy cannot catch it: by then the destination is the source.
 
 ## Copy, verify, then remove
 
