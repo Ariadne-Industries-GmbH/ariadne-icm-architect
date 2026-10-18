@@ -35,4 +35,4 @@ produces: []
 ## See
 
 - Objects: {links}
-- Source: `{path}`
+- Source: [Source file]({path})

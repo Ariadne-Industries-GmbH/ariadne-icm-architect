@@ -1,9 +1,9 @@
 ---
-name: icm-architect
+name: ariadne-icm-architect
 description: Design any process, idea, problem, or body of knowledge into an ICM (Interpretable Context Methodology) workspace — folder structure as agent architecture — or restructure an existing folder, repo, or vault into one. Use when the user wants to (1) turn a recurring workflow into an agent-runnable folder pipeline, (2) organize scattered notes, files, or knowledge into a library one AI agent can walk, (3) map a team or company as connected context ("context map", "second brain", "team brain", "knowledge base for AI"), (4) audit a codebase or mixed folder into a walkable edit map (objects, processes, change-impact) so later agents can change it without slurping the tree, (5) audit or restructure an existing workspace to ICM conventions, or (6) says "make this an ICM", "ICM this", "map this repo", "audit this folder", "what would a change hit", "build me a workspace", or "structure this for agents".
 ---
 
-# ICM Architect
+# Ariadne ICM Architect
 
 Build workspaces where the folder structure does the orchestration. One agent, reading the right files at the right moment, replaces a multi-agent framework: numbered folders carry sequencing, hierarchy carries context scoping, plain markdown files carry state. A human can open any folder and see exactly what state the system is in, because state is just files.
 
@@ -16,15 +16,17 @@ Method: Interpretable Context Methodology (Van Clief & McDermott, arXiv:2603.160
 Every ICM, whatever its form, obeys these. When building or restructuring, enforce all ten:
 
 1. **One folder, one job.** Each folder does a single step or holds a single kind of thing, and states its own purpose in a file inside itself. The structure is the documentation.
-2. **A small, stable entry file.** `CLAUDE.md` (or `AGENTS.md`) at the root answers "where am I, where does everything live, where do I go for task X" — and nothing else. Target under ~60 lines. It routes; it never holds content.
+2. **A small, stable entry file.** `AGENTS.md` (or `CLAUDE.md`) at the root answers "where am I, where does everything live, where do I go for task X" — and nothing else. Target under ~60 lines. It routes; it never holds content.
 3. **Numbering encodes order.** `01_`, `02_`, … where sequence matters. Renaming folders reorders the pipeline — that is the point.
 4. **Every folder-level contract is explicit.** A `CONTEXT.md` per working folder: what it reads (inputs), what it does (process), what it writes (outputs), what a human checks. See [assets/templates/stage-CONTEXT.md](assets/templates/stage-CONTEXT.md).
 5. **Factory vs. product.** Reference material (rules, voice, schemas, templates — stable across runs) lives structurally apart from working artifacts (outputs, drafts — new every run). Configure the factory once; the product is what each run emits.
 6. **Every output is an edit surface.** Intermediate outputs are plain files a human can open, edit, and save before the next step reads them. Nothing moves forward until a person has read the last output.
 7. **Load only what the step needs.** An agent executing a step reads its contract, its references, and its inputs — not the whole workspace. 2,000–8,000 tokens per step is the healthy range.
-8. **Plain text, linkable, queryable.** Markdown + YAML frontmatter. Links (`[[wikilinks]]` or relative paths) make it a graph; frontmatter labels make it queryable. One home per fact — a link beats a copy.
+8. **Plain text, linkable, queryable.** Markdown + YAML frontmatter. Use clickable relative Markdown links ([label](relative/file.md)) for workspace-internal references to existing files; literal path values and planned outputs may remain code. Use [[term]] for terms or identifiers that carry the same meaning across files, in prose, tables, or headings. Wikilinks connect occurrences; they do not require a definition, a glossary, or a matching file. Backticked file paths are not navigation links. One home per fact — a link beats a copy.
 9. **The filesystem is the state machine.** "Status" is derivable by scanning what exists in output folders. Generated indexes (file maps, logs) are rebuilt by script, never hand-edited.
 10. **Instantiate by copying.** New unit of work = copy a template folder, not a blank page. Keep templates in a `_templates/` folder.
+
+Prefer AGENTS.md over CLAUDE.md.
 
 ## Choose a mode
 
@@ -59,9 +61,9 @@ Real workspaces mix forms (a record library whose records are mini knowledge bun
 
 **3. Scaffold the smallest structure that carries the work.** Copy starters from [assets/templates/](assets/templates/) and fill them in. Do not create folders for stages that don't exist yet, empty "misc" buckets, or speculative depth. Three real stages beat seven imagined ones. If the whole job fits in one saved prompt, say so and don't build a workspace at all.
 
-**4. Write the contracts.** Root `CLAUDE.md` (identity + routing table), root `CONTEXT.md` (the pipeline or schema definition), one `CONTEXT.md` per stage/hub folder, `setup/questionnaire.md` if the factory needs configuring per user. Write inputs as explicit file paths, split into working (this run) and reference (every run).
+**4. Write the contracts.** Root `AGENTS.md` (or `CLAUDE.md`: identity + routing table), root `CONTEXT.md` (the pipeline or schema definition), one `CONTEXT.md` per stage/hub folder, `setup/questionnaire.md` if the factory needs configuring per user. Write navigable, existing inputs as relative Markdown links, and planned outputs as literal paths until created; split working (this run) and reference (every run). **Persist the linking and maintenance rules from [assets/templates/AGENTS.md](assets/templates/AGENTS.md) in the generated workspace entry file, regardless of form.** Copy [assets/templates/check_links.py](assets/templates/check_links.py) to `_system/check_links.py` at the workspace root. Replace placeholder routes with links to existing files; omit unused stages and setup links. Later agents must be able to follow these rules without this skill.
 
-**5. Validate with the walk test** (below).
+**5. Validate with the walk test** (below) and run `python3 _system/check_links.py .` inside the generated workspace. Structural link checks are automated; humans review substantive decisions, not link formatting.
 
 ## Restructure mode
 
@@ -70,7 +72,7 @@ Real workspaces mix forms (a record library whose records are mini knowledge bun
 **2. Find the hidden form.** Ask the owner (or infer and confirm): what is the repeating unit here? Where does work enter and leave? The mess usually contains a real pipeline, library, or map that grew without a skeleton — extract it, don't replace it. Interview the folder the way you'd interview the person.
 
 **3. Classify every file** into one of five roles:
-- **Catalog** — identity/routing (becomes or feeds `CLAUDE.md` / index files)
+- **Catalog** — identity/routing (becomes or feeds `AGENTS.md` / index files)
 - **Contract** — describes how a step works (becomes a `CONTEXT.md`)
 - **Factory** — stable reference (→ `_shared/`, `_system/`, or `references/`)
 - **Product** — run-specific artifacts (→ stage `output/` or record folders)
@@ -80,9 +82,9 @@ Real workspaces mix forms (a record library whose records are mini knowledge bun
 
 **5. Propose before moving.** Present the target tree and a migration map (old path → new path → role → referrers found). Get approval. This is a human gate in a method built on human gates — honor it. The reviewer approves against the reference report from step 4, not against a hunch.
 
-**6. Migrate — copy, verify, then remove.** Never move-and-hope. Before any copy or rename, check whether the destination already exists **case-folded** — on Windows and macOS, `CLAUDE.md` → `CONTEXT.md` silently overwrites an existing `context.md`, and a file-inventory map will not show the collision. Surface every hit at the approval gate. Then copy to the new home, verify parity (file count and content hash) against the source, and only then remove the original. Write the entry file and contracts, de-duplicate toward one-home-per-fact (leave a link where the copy lived if anything referenced it). Separate method from instance: if the structure will be reused elsewhere, the blank template lives apart from this filled-in deployment.
+**6. Migrate — copy, verify, then remove.** Never move-and-hope. Before any copy or rename, check whether the destination already exists **case-folded** — on Windows and macOS, `AGENTS.md` → `CONTEXT.md` silently overwrites an existing `context.md`, and a file-inventory map will not show the collision. Surface every hit at the approval gate. Then copy to the new home, verify parity (file count and content hash) against the source, and only then remove the original. Write the entry file and contracts, de-duplicate toward one-home-per-fact (leave a link where the copy lived if anything referenced it). Separate method from instance: if the structure will be reused elsewhere, the blank template lives apart from this filled-in deployment. Persist the workspace-wide linking rules in the root entry file and copy the link checker here too.
 
-**7. Validate with the walk test.**
+**7. Validate with the walk test** and run `python3 _system/check_links.py .` inside the restructured workspace.
 
 ## The walk test
 
@@ -93,22 +95,22 @@ Validate any ICM — new or restructured — by walking it cold, as an agent wit
 - Can you state pipeline status purely by scanning what exists in `output/` folders (or node frontmatter)?
 - Is any routing file carrying content payload? Move the payload to a shelf; leave a pointer.
 - Is any fact stored in two places? Pick one home; link from the other.
-- After a restructure: does every reference that existed *before* the move still resolve? A moved file that something still points at is a break, not a tidy-up.
+- After a restructure: does every relative Markdown file link that existed *before* the move still resolve? A moved file that something still points at is a break, not a tidy-up. Run `python3 _system/check_links.py .` in the resulting workspace; repair broken links before completion.
+- Does the root entry file carry the workspace-wide linking rules, and can a cold agent apply them without this skill? Are cross-file shared identifiers consistently written as [[term]] rather than unexplained bare labels?
 - Token check: entry file + one contract + its inputs should land in roughly 2k–8k tokens.
-- System map only: can a cold agent answer *what is X* and *what else moves if I change X* from `map/CLAUDE.md` plus one card? Extra checks are in [references/system-map.md](references/system-map.md).
+- System map only: can a cold agent answer *what is X* and *what else moves if I change X* from `map/AGENTS.md` plus one card? Extra checks are in [references/system-map.md](references/system-map.md).
 
 If a step fails, fix the structure — not by explaining more, but by moving or splitting files until the walk works.
 
 ## Guardrails
-
 - **Don't over-structure.** The ladder runs: chat → saved prompt/skill → folders + one agent. Only climb when the rung below is genuinely automated and repeating. A workspace for a thing done twice is scaffolding, not architecture.
 - **Know where ICM loses.** Real-time multi-agent collaboration, high-concurrency multi-user serving, and automated mid-pipeline branching genuinely need framework code. ICM is for sequential, human-reviewed, repeatable work — which is most knowledge work, but not all of it.
+
 - **Anti-patterns seen in the wild:** duplicated entry files that drift (generate one from the other, or make one a pointer); schema documents that mandate names the actual files stopped using (update the schema or the files — pick one); hand-edits to generated indexes; workshop sessions that produce slides instead of structured data (every working session should end in an artifact the structure can hold); patterns declared top-down (one team complaining is a gripe — the same shape appearing three independent times is structure).
 
 ## References
-
 - [references/core.md](references/core.md) — the five design principles, the five-layer context hierarchy, naming conventions, token discipline. Read when writing contracts or when a structural call is contested.
 - [references/forms.md](references/forms.md) — the six forms in depth: skeletons, moves, failure modes. Read at step 2 of Build mode or step 2 of Restructure mode.
 - [references/system-map.md](references/system-map.md) — audit pipeline for the System map form. Read when that form is chosen.
 - [references/reference-integrity.md](references/reference-integrity.md) — the move-safety gate: what points at a file, case-folded destinations, copy-verify-remove. Read at step 4 of Restructure mode, or any time a move is contested.
-- [assets/templates/](assets/templates/) — copyable starters: `CLAUDE.md`, workspace `CONTEXT.md`, `stage-CONTEXT.md`, `node.md`, `object.md`, `process.md`, `schema.md`, `questionnaire.md`.
+- [assets/templates/](assets/templates/) — copyable starters: `AGENTS.md`, workspace `CONTEXT.md`, `stage-CONTEXT.md`, `node.md`, `object.md`, `process.md`, `schema.md`, `questionnaire.md`.

@@ -23,7 +23,7 @@ The paper's canonical shape. The same sequence runs weekly or daily with differe
 
 ```
 workspace/
-├─ CLAUDE.md               identity + routing table
+├─ AGENTS.md               identity + routing table
 ├─ CONTEXT.md              the pipeline in one screen
 ├─ stages/
 │  ├─ 01_research/   {CONTEXT.md, references/, output/}
@@ -49,12 +49,12 @@ Several distinct production lines share one brand, voice, and reference layer. T
 
 ```
 workspace/
-├─ CLAUDE.md               the map: what lives where, which pipeline for which job
+├─ AGENTS.md               the map: what lives where, which pipeline for which job
 ├─ 01-pillars/             shared factory: positioning, pillars
 ├─ 02-brand-voice/         shared factory: voice, style
-├─ 03-video-production/    a full Pipeline workspace (own CLAUDE.md)
-├─ 04-scene-generation/    a full Pipeline workspace (own CLAUDE.md)
-└─ 05-animation-studio/    a full Pipeline workspace (own CLAUDE.md)
+├─ 03-video-production/    a full Pipeline workspace (own AGENTS.md)
+├─ 04-scene-generation/    a full Pipeline workspace (own AGENTS.md)
+└─ 05-animation-studio/    a full Pipeline workspace (own AGENTS.md)
 ```
 
 **Defining moves:**
@@ -94,7 +94,7 @@ The deliverable is a navigable body of knowledge: a brain, a domain wiki, a mode
 
 ```
 workspace/
-├─ CLAUDE.md
+├─ AGENTS.md
 ├─ corpus/                 raw sources + _index.md checkbox manifest (state surface)
 ├─ extraction/             the factory: an ICM Pipeline whose output is the bundle
 └─ bundle/                 the product:
@@ -106,7 +106,7 @@ workspace/
 
 **Defining moves:**
 - Every note carries typed YAML frontmatter (`type:`, `layer:`, `access_tier:`, `strength:`) — labels make it queryable, links make it a graph.
-- Notes cross-link by relative path or wikilink; navigation is link-following, not folder-crawling. A link that doesn't resolve yet marks something worth writing, not an error.
+- Notes navigate to files with relative Markdown links and connect shared concepts with `[[wikilinks]]`; navigation is link-following, not folder-crawling. A wikilink can be meaningful without a target file.
 - Layered loading is the reading protocol: always-load layer first, task-relevant nodes second, evidence only when needed. Never slurp the bundle.
 - `access_tier` gates what may leave the machine: patterns abstracted from private sources are fine; raw quotes are not.
 - Regenerating the bundle is a factory run; every change appends to a log.
@@ -148,9 +148,9 @@ The subject is a tree someone will change: a repository, a markdown vault, or bo
 
 ```
 subject/
-├─ CLAUDE.md                 existing entry — add one row pointing at map/
+├─ AGENTS.md                 existing entry — add one row pointing at map/
 └─ map/
-   ├─ CLAUDE.md              catalog (generate AGENTS.md + routing.md)
+   ├─ AGENTS.md              catalog (generate CLAUDE.md + routing.md)
    ├─ CONTEXT.md             universes + name collisions
    ├─ _meta/schema.md
    ├─ _templates/            object.md, process.md

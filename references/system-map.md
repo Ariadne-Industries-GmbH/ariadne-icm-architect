@@ -28,13 +28,13 @@ Product language and file/type names often disagree. State both once in the cata
 
 Propose before writing. Prefer a `map/` shelf next to existing orientation (`developer-docs/`, `docs/`, vault root) so the subject’s entry file can add one routing row. Do not drop a map inside `src/` or scatter cards through the tree you are mapping.
 
-Entry files: edit `CLAUDE.md`. Generate `AGENTS.md` and `routing.md` as byte-identical twins in the same folder. Never hand-edit the twins. Tools that ignore `CLAUDE.md` still get the catalog.
+Entry files: edit `AGENTS.md`. Generate `CLAUDE.md` and `routing.md` as byte-identical twins in the same folder. Never hand-edit the twins. Tools that ignore `AGENTS.md` still get the catalog.
 
 ## Target tree (smallest that carries the work)
 
 ```
 map/
-├─ CLAUDE.md              L0 catalog (twins: AGENTS.md, routing.md)
+├─ AGENTS.md              L0 catalog (twins: AGENTS.md, routing.md)
 ├─ CONTEXT.md             how to walk; the universes; name collisions
 ├─ _meta/schema.md        closed node types
 ├─ _templates/            object.md, process.md
@@ -58,7 +58,7 @@ List the tree. Classify each area: catalog / contract / factory / product / dead
 
 ### 1 — Catalog
 
-Write `CLAUDE.md`, `CONTEXT.md`, schema, templates, `objects/_index.md` with **stub lines** for every noun you will not invent a body for. Wire one routing row from the subject’s existing entry file. Walk: “where do I go to understand X?” lands in two hops.
+Write `AGENTS.md`, `CONTEXT.md`, schema, templates, `objects/_index.md` with **stub lines** for every noun you will not invent a body for. Wire one routing row from the subject’s existing entry file. Walk: “where do I go to understand X?” lands in two hops.
 
 ### 2 — Nouns (objects)
 
@@ -106,7 +106,7 @@ After the first fill, rip the load-bearing claims again (especially Hits / Does 
 A cold agent, no memory of the subject:
 
 1. Open the subject’s entry file. Is the map one hop away?
-2. Open `map/CLAUDE.md`. Can it say what the colliding names mean without opening a card?
+2. Open `map/AGENTS.md`. Can it say what the colliding names mean without opening a card?
 3. Open one object card. Does it cite source, state the why, and give a first-order waterfall?
 4. From `effects/CONTEXT.md`, can it name what a stated change hits and what it does not?
 5. Follow one `See` link. Does it land on source, not another essay?
@@ -119,7 +119,7 @@ If a step fails, split or move files. Do not add a “how to read this map” no
 - Mapping FeatureRequests / aspiration as live. Ghost it.
 - Copying as-built behaviour into cards. Point at the file that owns it.
 - Empty process/effects folders.
-- Two hand-edited entry files (`CLAUDE.md` and `AGENTS.md` that drift).
+- Two hand-edited entry files (`AGENTS.md` and `CLAUDE.md` that drift).
 - Cards with no citations marked `verified`.
 - Slurping the whole `objects/` folder in a later session — the catalog exists so you do not.
 - An `effects/` index that only walks outward. What points INTO the tree from outside is invisible from inside it.
